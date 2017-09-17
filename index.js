@@ -1,15 +1,17 @@
+// jshint esversion:6, -W033
 import express from 'express';
 import twilio from 'twilio';
 
 // Account SID and auth token are stored in environment variables.
-var app = express();
+const app = express();
 
 app.post('/voice', function(req, res) {
   console.log('Call received.');
 
   // Set the url of the song we are going to play
-  let songUrl = 'http://ocrmirror.org/files/music/remixes/Street_Fighter_2_Guile%27s_Theme_Goes_with_Metal_OC_ReMix.mp3'
-
+  // let songUrl = 'http://ocrmirror.org/files/music/remixes/Street_Fighter_2_Guile%27s_Theme_Goes_with_Metal_OC_ReMix.mp3'
+  let songUrl = 'http://localhost:8080/alert.mp3'
+  
   // Generate a TwiML response
   let twiml = new twilio.TwimlResponse();
 
@@ -17,7 +19,7 @@ app.post('/voice', function(req, res) {
   res.header('Content-Type', 'text/xml');
 
   // Play Guile's theme over the phone.
-  twiml.play(songUrl);
+  twiml.play({ loop: 3 }, songUrl);
 
   // Send the TwiML as the response.
   res.send(twiml.toString());
