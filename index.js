@@ -10,7 +10,7 @@ app.post('/voice', function(req, res) {
 
   // Set the url of the song we are going to play
   // let songUrl = 'http://ocrmirror.org/files/music/remixes/Street_Fighter_2_Guile%27s_Theme_Goes_with_Metal_OC_ReMix.mp3'
-  let songUrl = 'http://localhost:8080/alert.mp3'
+  let songUrl = 'https://dl.dropboxusercontent.com/s/399n1mgqr47m8ub/alert.mp3'
   
   // Generate a TwiML response
   let twiml = new twilio.TwimlResponse();
@@ -19,7 +19,7 @@ app.post('/voice', function(req, res) {
   res.header('Content-Type', 'text/xml');
 
   // Play Guile's theme over the phone.
-  twiml.play({ loop: 3 }, songUrl);
+  twiml.play(songUrl);
 
   // Send the TwiML as the response.
   res.send(twiml.toString());
